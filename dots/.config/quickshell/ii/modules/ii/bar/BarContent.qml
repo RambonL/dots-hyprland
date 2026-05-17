@@ -59,8 +59,8 @@ Item { // Bar content region
         implicitWidth: leftSectionRowLayout.implicitWidth
         implicitHeight: Appearance.sizes.baseBarHeight
 
-        onScrollDown: Brightness.decreaseBrightness()
-        onScrollUp: Brightness.increaseBrightness()
+        onScrollDown: root.brightnessMonitor.setBrightness(root.brightnessMonitor.brightness - 0.05)
+        onScrollUp: root.brightnessMonitor.setBrightness(root.brightnessMonitor.brightness + 0.05)
         onMovedAway: GlobalStates.osdBrightnessOpen = false
         onPressed: event => {
             if (event.button === Qt.LeftButton)
@@ -70,7 +70,7 @@ Item { // Bar content region
         // Visual content
         ScrollHint {
             reveal: barLeftSideMouseArea.hovered
-            icon: Hyprsunset.gamma === 100 ? "light_mode" : "wb_twilight"
+            icon: "light_mode"
             tooltipText: Translation.tr("Scroll to change brightness")
             side: "left"
             anchors.left: parent.left
@@ -183,6 +183,10 @@ Item { // Bar content region
                     visible: (root.useShortenedForm < 2 && Battery.available)
                     Layout.alignment: Qt.AlignVCenter
                 }
+                BatteryResources {
+                alwaysShowAllResources: root.useShortenedForm === 2
+                Layout.fillWidth: root.useShortenedForm === 2
+            }
             }
         }
     }
@@ -315,6 +319,10 @@ Item { // Bar content region
                         color: rightSidebarButton.colText
                     }
                 }
+            }
+
+            MullvadIndicator {
+                Layout.fillHeight: true
             }
 
             SysTray {
