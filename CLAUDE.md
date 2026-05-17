@@ -12,6 +12,16 @@ Configs live under `~/dots/dots/.config/` and are symlinked:
 - `~/.config/quickshell/ii` → `~/dots/dots/.config/quickshell/ii`
 - `~/.config/hypr` → `~/dots/dots/.config/hypr`
 
+**If something looks missing or broken, verify symlinks first:**
+```bash
+ls -la ~/.config/hypr ~/.config/quickshell/ii
+```
+Both must show `->` (symlink). If either is a real directory, the upstream install script overwrote it. Fix:
+```bash
+mv ~/.config/quickshell/ii ~/.config/quickshell/ii.bak
+ln -s ~/dots/dots/.config/quickshell/ii ~/.config/quickshell/ii
+```
+
 ## Commits
 
 Never add `Co-Authored-By` trailers to commits.
