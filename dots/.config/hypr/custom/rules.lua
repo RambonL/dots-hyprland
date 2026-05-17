@@ -1,1 +1,5 @@
-
+hl.window_rule({match = {class = "kitty"},                           opacity = "0.9 0.8"})
+hl.window_rule({match = {class = "com.mitchellh.ghostty"},           opacity = "0.9 0.8"})
+hl.window_rule({match = {class = "discord"},                         opacity = "1 1"})
+hl.window_rule({match = {class = "code-oss"},                        opacity = "0.9 0.8"})
+hl.window_rule({match = {class = "org.prismlauncher.PrismLauncher"}, opacity = "0.9 0.8"})

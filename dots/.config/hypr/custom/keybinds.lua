@@ -1,1 +1,7 @@
-hl.bind("CTRL+SUPER+ALT+Slash", hl.dsp.exec_cmd("xdg-open ~/.config/hypr/custom/keybinds.lua"), {description = "Edit user keybinds"} )
+hl.bind("CTRL+SUPER+ALT+Slash",   hl.dsp.exec_cmd("xdg-open ~/.config/hypr/custom/keybinds.lua"),                   {description = "Edit user keybinds"})
+hl.bind("CTRL+SUPER+Slash",       hl.dsp.exec_cmd("xdg-open ~/.config/illogical-impulse/config.json"),               {description = "Edit shell config"})
+hl.bind("SUPER+SHIFT+minus",      hl.dsp.global("quickshell:cheatsheetToggle"),                                       {description = "Toggle cheatsheet"})
+hl.bind("CTRL+SHIFT+KP_Multiply", hl.dsp.exec_cmd("~/.local/bin/discord_mic_toggle"),                                {description = "Discord Mute"})
+hl.bind("CTRL+SHIFT+KP_Divide",   hl.dsp.exec_cmd("~/.local/bin/discord_deafen_toggle"),                             {description = "Discord Full-Mute"})
+hl.unbind("SUPER + X")
+hl.bind("SUPER+X",                hl.dsp.exec_cmd([[bash -lc "kill -USR1 $(pgrep -fo 'wayscriber --daemon')"]]),      {description = "Toggle Wayscriber"})

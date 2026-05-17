@@ -1,1 +1,12 @@
+hl.on("hyprland.start", function()
+    hl.exec_cmd("mullvad-vpn")
+    hl.exec_cmd("discord --ozone-platform=x11")
+    hl.exec_cmd("python /usr/bin/streamdeck")
+    hl.exec_cmd("keepassxc")
+    hl.exec_cmd("WAYSCRIBER_TRAY_FORCE_PIXMAP=1 wayscriber --daemon")
+end)
 
+hl.window_rule({match = {class = "^discord$"},     workspace = 3,  monitor = 1})
+hl.window_rule({match = {class = "^Mullvad VPN$"}, workspace = 10, monitor = 2})
+hl.window_rule({match = {class = "^python3$"},     workspace = 10, monitor = 2})
+hl.window_rule({match = {class = "^keepassxc$"},   workspace = 10, monitor = 2})

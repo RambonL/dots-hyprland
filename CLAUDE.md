@@ -1,37 +1,27 @@
-# dots-hyprland — CLAUDE.md
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Repo
 
-Fork von [end-4/dots-hyprland](https://github.com/end-4/dots-hyprland)  
-Eigener Fork: `https://github.com/RambonL/dots-hyprland`  
-Lokaler Clone: `~/dots/`
+Fork of [end-4/dots-hyprland](https://github.com/end-4/dots-hyprland)  
+Own fork: `https://github.com/RambonL/dots-hyprland`  
+Local clone: `~/dots/`
 
-Configs liegen unter `~/dots/dots/.config/` und sind per Symlink eingebunden:
+Configs live under `~/dots/dots/.config/` and are symlinked:
 - `~/.config/quickshell/ii` → `~/dots/dots/.config/quickshell/ii`
 - `~/.config/hypr` → `~/dots/dots/.config/hypr`
 
-## Struktur
+## Commits
 
-```
-~/dots/
-  dots/
-    .config/
-      quickshell/ii/    — Quickshell Shell (siehe eigene CLAUDE.md dort)
-      hypr/             — Hyprland Config
-        custom/         — Persönliche Overrides (keybinds, execs, rules, env)
-        hyprland/       — Modular aufgeteilte Hyprland-Configs
-        hyprlock/       — Lockscreen-Themes
-        workflows/      — Workspace-Workflows
-```
+Never add `Co-Authored-By` trailers to commits.
 
-## Commit-Struktur
+Two separate commits — important for clean rebasing:
 
-Zwei getrennte Commits — wichtig für sauberes Rebasing:
-
-| Commit | Inhalt | Anfassen? |
-|--------|--------|-----------|
-| `upstream baseline` | upstream Updates (dots-hyprland) | Nein |
-| `custom: ...` | Eigene Änderungen | Ja |
+| Commit | Content | Touch? |
+|--------|---------|--------|
+| `upstream baseline` | upstream dots-hyprland updates | No |
+| `custom: ...` | personal changes | Yes |
 
 ## Upstream Update
 
@@ -39,23 +29,55 @@ Zwei getrennte Commits — wichtig für sauberes Rebasing:
 cd ~/dots
 git fetch upstream
 git rebase upstream/main
-# Konflikte möglich in: BarContent.qml, StyledPopup.qml
-# → manuell lösen, dann:
+# Conflicts likely in: BarContent.qml, StyledPopup.qml
+# → resolve manually, then:
 git rebase --continue
 git push origin main
 ```
 
-## Eigene Änderungen committen
+## Hypr Config (Lua-based)
 
-```bash
-cd ~/dots
-git add dots/.config/quickshell/ii/neue-datei.qml
-git commit -m "custom: beschreibung"
-git push origin main
+Entry point: `hyprland.lua` — sources `hyprland/` defaults then `custom/` overrides.
+
+**Only edit files in `hypr/custom/`** — these load after upstream defaults and survive updates.
+
+| File | Purpose |
+|------|---------|
+| `custom/keybinds.lua` | Extra binds, `hl.unbind()` overrides |
+| `custom/rules.lua` | Window rules, monitor layout |
+| `custom/general.lua` | Input, decoration, monitor config |
+| `custom/execs.lua` | Autostart apps, `hl.on("hyprland.start", ...)` |
+| `custom/env.lua` | Environment variables |
+
+### `hl.` API patterns
+
+```lua
+-- Keybind
+hl.bind("SUPER+T", hl.dsp.exec_cmd("kitty"), {description = "Terminal"})
+hl.unbind("SUPER+X")   -- remove upstream bind before rebinding
+
+-- Window rule
+hl.window_rule({match = {class = "^discord$"}, workspace = 3, monitor = 1})
+
+-- Monitor
+hl.monitor({output = "DP-1", mode = "2560x1440@165", position = "0x0", scale = "1"})
+
+-- Config option
+hl.config({ input = { sensitivity = 0.0 } })
+
+-- Autostart (runs once on compositor start)
+hl.on("hyprland.start", function()
+    hl.exec_cmd("mullvad-vpn")
+end)
 ```
 
-## Hypr Config
+`.old` / `.new` files are install-script backup artifacts — ignore.
 
-- Persönliche Settings nur in `hypr/custom/` — diese Dateien werden von `hyprland.conf` includiert
-- `hyprland/` enthält die modulare Haupt-Config (keybinds, rules, env, execs, general)
-- `.old` / `.new` Dateien sind Backup-Artefakte vom dots-hyprland Install-Script — ignorieren
+## Quickshell II (QML shell)
+
+Full documentation: `dots/.config/quickshell/ii/CLAUDE.md`
+
+Stack: Quickshell + QML/JS + Hyprland. Entry point: `shell.qml`.  
+Personal services (MullvadVpn, BatteryUsage) live in `services/`.  
+Bar indicators and popups live in `modules/ii/bar/`.  
+No `qmldir` needed — Quickshell auto-discovers `.qml` files by directory.
