@@ -87,9 +87,9 @@ Item {
             name: Translation.tr("Enable now")
             description: Translation.tr("More comfortable viewing at night")
             iconName: WIcons.nightLightIcon
-            checked: Hyprsunset.temperatureActive
+            checked: Hyprsunset.active
             onCheckedChanged: {
-                Hyprsunset.toggleTemperature(checked);
+                Hyprsunset.toggle(checked);
             }
         }
 

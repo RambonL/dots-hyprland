@@ -90,5 +90,39 @@ StyledPopup {
                 }
             }
         }
+
+        // Column {
+		// 	anchors.top: parent.top
+        //     spacing: 8
+
+        //    	StyledPopupHeaderRow {
+        //     	icon: "planner_review"
+        //         label: "Battery"
+        //   	}
+        //     Column {
+        //     	spacing: 4
+        //         StyledPopupValueRow {
+        //         	icon: "bolt"
+        //             label: Translation.tr("Mouse:")
+        //             //value: `${BatteryUsage.mouseBattery}%`
+        //             value: {
+        //                 const val = BatteryUsage.mouseBattery;
+        //                 const color = val <= 30 ? "#ff5555" : "#c8c6c7";
+        //                 return "<font color='" + color + "'>" + val + "%</font>";
+        //             }
+        //         }
+        //         StyledPopupValueRow {
+        //             icon: "bolt"
+        //             label: Translation.tr("Keyboard:")
+        //             //value: `${BatteryUsage.keyboardBattery}%`
+        //             value: {
+        //                 const val = BatteryUsage.keyboardBattery;
+        //                 const color = val <= 30 ? "#ff5555" : "#c8c6c7";
+        //                 return "<font color='" + color + "'>" + val + "%</font>";
+        //             }
+        //        }
+        //     }
+       	// }
     }
+    
 }

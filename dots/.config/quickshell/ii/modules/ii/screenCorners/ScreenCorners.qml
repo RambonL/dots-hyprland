@@ -98,7 +98,7 @@ Scope {
                         if (!Config.options.sidebar.cornerOpen.valueScroll)
                             return;
                         if (cornerWidget.isLeft)
-                            Brightness.decreaseBrightness()
+                            cornerPanelWindow.brightnessMonitor.setBrightness(cornerPanelWindow.brightnessMonitor.brightness - 0.05);
                         else {
                             const currentVolume = Audio.value;
                             const step = currentVolume < 0.1 ? 0.01 : 0.02 || 0.2;
@@ -109,7 +109,7 @@ Scope {
                         if (!Config.options.sidebar.cornerOpen.valueScroll)
                             return;
                         if (cornerWidget.isLeft)
-                            Brightness.increaseBrightness()
+                            cornerPanelWindow.brightnessMonitor.setBrightness(cornerPanelWindow.brightnessMonitor.brightness + 0.05);
                         else {
                             const currentVolume = Audio.value;
                             const step = currentVolume < 0.1 ? 0.01 : 0.02 || 0.2;
