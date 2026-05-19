@@ -47,20 +47,29 @@ After running the install script:
 ```
 Renames the live `~/.config/quickshell/ii` to a timestamped backup, rsyncs upstream files into the dots repo (custom files protected), re-creates the symlink.
 
-Then check if custom additions to `BarContent.qml` were lost (MullvadIndicator, BatteryResources) and re-apply manually if needed:
-```bash
-git diff HEAD -- dots/.config/quickshell/ii/modules/ii/bar/BarContent.qml
-```
+The script prints warnings for files with custom patches that changed upstream:
+- `⚠ StyledPopup.qml` — screen-clamping patch (prevents popup overflow onto second monitor)
+- `⚠ BarContent.qml` — MullvadIndicator + BatteryResources additions
+
+If warned, re-apply the patch manually, then commit separately as `custom: ...`.
 
 **2. Commit:**
 ```bash
 git add dots/.config/quickshell/ii
 git commit -m "upstream baseline: qs update"
-# if custom re-applied:
-git add dots/.config/quickshell/ii/modules/ii/bar/BarContent.qml
-git commit -m "custom: re-apply bar additions after qs update"
+# if custom patches re-applied:
+git add dots/.config/quickshell/ii/modules/ii/bar/BarContent.qml \
+        dots/.config/quickshell/ii/modules/ii/bar/StyledPopup.qml
+git commit -m "custom: re-apply bar patches after qs update"
 git push origin main
 ```
+
+### Custom patches in quickshell
+
+| File | Patch |
+|------|-------|
+| `modules/ii/bar/StyledPopup.qml` | Screen-clamping: clamps popup `left` margin to `screenWidth - popupWidth` to prevent overflow onto second monitor |
+| `modules/ii/bar/BarContent.qml` | Adds `MullvadIndicator` to right section, `BatteryResources` to clock group |
 
 ## Hypr Config (Lua-based)
 
