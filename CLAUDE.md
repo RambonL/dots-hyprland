@@ -37,13 +37,28 @@ Two separate commits — important for clean rebasing:
 
 ## Upstream Update
 
+Updating happens via the **dots-hyprland install script** (not git rebase — upstream remote is not fetched).
+
+After running the install script:
+
+**1. Sync quickshell into dots repo:**
 ```bash
-cd ~/dots
-git fetch upstream
-git rebase upstream/main
-# Conflicts likely in: BarContent.qml, StyledPopup.qml
-# → resolve manually, then:
-git rebase --continue
+~/dots/scripts/qs-sync.sh
+```
+Renames the live `~/.config/quickshell/ii` to a timestamped backup, rsyncs upstream files into the dots repo (custom files protected), re-creates the symlink.
+
+Then check if custom additions to `BarContent.qml` were lost (MullvadIndicator, BatteryResources) and re-apply manually if needed:
+```bash
+git diff HEAD -- dots/.config/quickshell/ii/modules/ii/bar/BarContent.qml
+```
+
+**2. Commit:**
+```bash
+git add dots/.config/quickshell/ii
+git commit -m "upstream baseline: qs update"
+# if custom re-applied:
+git add dots/.config/quickshell/ii/modules/ii/bar/BarContent.qml
+git commit -m "custom: re-apply bar additions after qs update"
 git push origin main
 ```
 
