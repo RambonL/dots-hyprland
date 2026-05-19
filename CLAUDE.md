@@ -11,18 +11,25 @@ Local clone: `~/dots/`
 Configs live under `~/dots/dots/.config/` and are symlinked:
 - `~/.config/quickshell/ii` → `~/dots/dots/.config/quickshell/ii`
 - `~/.config/hypr` → `~/dots/dots/.config/hypr`
+- `~/.config/fish/config.fish` → `~/dots/dots/.config/fish/config.fish`
 
 **If something looks missing or broken, verify symlinks first:**
 ```bash
-ls -la ~/.config/hypr ~/.config/quickshell/ii
+ls -la ~/.config/hypr ~/.config/quickshell/ii ~/.config/fish/config.fish
 ```
-Both must show `->` (symlink). If either is a real directory, the upstream install script overwrote it. Fix:
+All must show `->` (symlink). If not, the upstream install script overwrote it.
+
+Fix quickshell:
 ```bash
 mv ~/.config/quickshell/ii ~/.config/quickshell/ii.bak
 ln -s ~/dots/dots/.config/quickshell/ii ~/.config/quickshell/ii
 ```
+Fix fish:
+```bash
+ln -sf ~/dots/dots/.config/fish/config.fish ~/.config/fish/config.fish
+```
 
-**The upstream install script overwrites the `quickshell/ii` symlink on every run.** After each upstream sync, re-check and re-create the symlink if needed.
+**The upstream install script overwrites symlinks on every run.** `qs-sync.sh` restores both quickshell and fish symlinks automatically — always run it after the install script.
 
 ## Commits
 

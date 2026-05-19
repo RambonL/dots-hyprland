@@ -52,6 +52,17 @@ for f in "${PATCH_WARN[@]}"; do
 done
 
 echo ""
+echo "=== Restoring symlinks ==="
+FISH_LIVE="$HOME/.config/fish/config.fish"
+FISH_DOTS="$HOME/dots/dots/.config/fish/config.fish"
+if [ ! -L "$FISH_LIVE" ]; then
+    echo "→ Restoring fish config symlink"
+    ln -sf "$FISH_DOTS" "$FISH_LIVE"
+else
+    echo "✓ fish config symlink intact"
+fi
+
+echo ""
 echo "Then commit:"
 echo "  git add dots/.config/quickshell/ii"
 echo "  git commit -m 'upstream baseline: qs update'"
