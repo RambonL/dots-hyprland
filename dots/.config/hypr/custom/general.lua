@@ -14,6 +14,6 @@ hl.config({
         fullscreen_opacity = 1.0,
     },
     debug = {
-        suppress_errors = true,
+        --suppress_errors = true,
     },
 })
