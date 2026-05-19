@@ -1,24 +1,22 @@
 #!/usr/bin/env bash
 # Run after dots-hyprland install script to sync quickshell upstream changes into the dots repo.
-# Protects custom files, re-creates symlink.
+# Edit qs-custom.conf to manage custom/patched files — do not edit this script.
 
 set -e
 
 QS_LIVE="$HOME/.config/quickshell/ii"
 QS_DOTS="$HOME/dots/dots/.config/quickshell/ii"
 BACKUP="$HOME/.config/quickshell/ii.bak.$(date +%Y%m%d-%H%M%S)"
+CONF="$(dirname "$0")/qs-custom.conf"
 
-# Custom files — never overwritten by rsync
-CUSTOM_EXCLUDES=(
-    "services/MullvadVpn.qml"
-    "services/BatteryUsage.qml"
-    "modules/ii/bar/MullvadIndicator.qml"
-    "modules/ii/bar/MullvadPopup.qml"
-    "modules/ii/bar/BatteryResources.qml"
-    "modules/ii/bar/BatteryRessource.qml"
-    "modules/ii/bar/DevicesBatteryPopup.qml"
-    "modules/ii/bar/ResourceUsagePopup.qml"
-)
+CUSTOM_EXCLUDES=()
+PATCH_WARN=()
+
+while IFS= read -r line || [[ -n "$line" ]]; do
+    [[ "$line" =~ ^#.*$ || -z "$line" ]] && continue
+    [[ "$line" == EXCLUDE:* ]] && CUSTOM_EXCLUDES+=("${line#EXCLUDE:}")
+    [[ "$line" == PATCH:* ]]   && PATCH_WARN+=("${line#PATCH:}")
+done < "$CONF"
 
 # Already a symlink — nothing to do
 if [ -L "$QS_LIVE" ]; then
@@ -44,12 +42,6 @@ rsync -av --delete "${EXCLUDE_ARGS[@]}" "$BACKUP/" "$QS_DOTS/"
 
 echo "→ Re-creating symlink"
 ln -s "$QS_DOTS" "$QS_LIVE"
-
-# Files with custom patches — warn if upstream changed them
-PATCH_WARN=(
-    "modules/ii/bar/StyledPopup.qml"
-    "modules/ii/bar/BarContent.qml"
-)
 
 echo ""
 echo "=== Manual checks needed ==="
