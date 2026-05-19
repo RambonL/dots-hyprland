@@ -22,6 +22,8 @@ mv ~/.config/quickshell/ii ~/.config/quickshell/ii.bak
 ln -s ~/dots/dots/.config/quickshell/ii ~/.config/quickshell/ii
 ```
 
+**The upstream install script overwrites the `quickshell/ii` symlink on every run.** After each upstream sync, re-check and re-create the symlink if needed.
+
 ## Commits
 
 Never add `Co-Authored-By` trailers to commits.
