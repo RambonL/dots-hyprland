@@ -45,9 +45,20 @@ rsync -av --delete "${EXCLUDE_ARGS[@]}" "$BACKUP/" "$QS_DOTS/"
 echo "→ Re-creating symlink"
 ln -s "$QS_DOTS" "$QS_LIVE"
 
+# Files with custom patches — warn if upstream changed them
+PATCH_WARN=(
+    "modules/ii/bar/StyledPopup.qml"
+    "modules/ii/bar/BarContent.qml"
+)
+
 echo ""
-echo "Check BarContent.qml — custom additions may need to be re-applied:"
-echo "  git diff HEAD -- dots/.config/quickshell/ii/modules/ii/bar/BarContent.qml"
+echo "=== Manual checks needed ==="
+for f in "${PATCH_WARN[@]}"; do
+    if ! diff -q "$BACKUP/$f" "$QS_DOTS/$f" &>/dev/null; then
+        echo "⚠  $f changed upstream — re-apply custom patch manually"
+    fi
+done
+
 echo ""
 echo "Then commit:"
 echo "  git add dots/.config/quickshell/ii"
