@@ -44,7 +44,21 @@ Two separate commits — important for clean rebasing:
 
 ## Upstream Update
 
-Updating happens via the **dots-hyprland install script** (not git rebase — upstream remote is not fetched).
+**1. Run the install script:**
+
+> **Fish shell incompatible** — switch to bash first: `bash`
+
+Full update (all components):
+```bash
+bash <(curl -s https://ii.clsty.link/get)
+```
+
+Minimal update (Hyprland + Quickshell only):
+```bash
+bash <(curl -s https://ii.clsty.link/get) -- --core
+```
+
+The install script overwrites symlinks — run `qs-sync.sh` immediately after.
 
 After running the install script:
 
