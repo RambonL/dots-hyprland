@@ -57,8 +57,10 @@ end)
 | Keybind | Action |
 |---------|--------|
 | `SUPER+1–9` | Focus workspace i on active monitor's group |
+| `CTRL+SUPER+1–9` | Focus workspace i on DP-2 (always group 1) |
+| `CTRL+SHIFT+SUPER+1–9` | Move window to WS i on DP-1 ↔ DP-2 (follow) |
 | `SUPER+SHIFT+M` | Move window to same-position WS on next monitor (follow) |
-| `CTRL+SHIFT+SUPER+M` | Move window to same-position WS on next monitor (silent, no focus change) |
+| `CTRL+SHIFT+SUPER+M` | Move window to same-position WS on next monitor (silent) |
 
 ## Window Rules
 

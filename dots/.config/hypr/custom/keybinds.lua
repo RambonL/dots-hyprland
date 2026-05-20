@@ -36,6 +36,30 @@ for i = 1, 10 do
     end)
 end
 
+-- CTRL+SHIFT+SUPER+N: send window to WS N on DP-1 ↔ DP-2 (follow)
+for i = 1, 10 do
+    local function send_to_other(pos)
+        local mon = hl.get_active_monitor()
+        if not mon then return end
+        local target_group = (mon.id == 0) and 1 or 0
+        local target_ws = target_group * workspaceGroupSize + pos
+        local target_mon = hl.get_monitor(target_group)
+        -- local dbg = "mon=" .. tostring(mon.id) .. " tg=" .. tostring(target_group) .. " tw=" .. tostring(target_ws) .. " tm=" .. tostring(target_mon and target_mon.name or "nil")
+        -- hl.dispatch(hl.dsp.exec_cmd("bash -c 'echo \"" .. dbg .. "\" >> /tmp/hypr_debug.txt'"))
+        hl.dispatch(hl.dsp.window.move({ workspace = tostring(target_ws), follow = true }))
+        hl.dispatch(hl.dsp.workspace.move({ workspace = tostring(target_ws), monitor = target_mon.name }))
+    end
+    hl.bind("CTRL + SHIFT + SUPER + " .. (i % 10), function() send_to_other(i) end,
+        { description = "Window: Send to WS " .. i .. " on other monitor" })
+end
+
+-- CTRL+SUPER+N: focus WS N on DP-2
+for i = 1, 10 do
+    hl.bind("CTRL + SUPER + " .. (i % 10), function()
+        hl.dispatch(hl.dsp.focus({ workspace = 1 * workspaceGroupSize + i }))
+    end, { description = "Focus WS " .. i .. " on DP-2" })
+end
+
 -- Monitor: move window to same WS on next monitor group (silent)
 hl.bind("CTRL+SHIFT+SUPER+M", function()
     local ws         = hl.get_active_workspace()
