@@ -1,17 +1,17 @@
 -- Apps
-hl.bind("CTRL+SUPER+ALT+Slash",   hl.dsp.exec_cmd("xdg-open ~/.config/hypr/custom/keybinds.lua"),             {description = "Edit user keybinds"})
-hl.bind("CTRL+SUPER+Slash",       hl.dsp.exec_cmd("xdg-open ~/.config/illogical-impulse/config.json"),         {description = "Edit shell config"})
+hl.bind("CTRL+SUPER+ALT+Slash",   hl.dsp.exec_cmd("xdg-open ~/.config/hypr/custom/keybinds.lua"),             {description = "Custom: Edit user keybinds"})
+hl.bind("CTRL+SUPER+Slash",       hl.dsp.exec_cmd("xdg-open ~/.config/illogical-impulse/config.json"),         {description = "Custom: Edit shell config"})
 
 -- Shell
-hl.bind("SUPER+SHIFT+minus",      hl.dsp.global("quickshell:cheatsheetToggle"),                                {description = "Toggle cheatsheet"})
+hl.bind("SUPER+SHIFT+minus",      hl.dsp.global("quickshell:cheatsheetToggle"),                                {description = "Custom: Toggle cheatsheet"})
 
 -- Discord
-hl.bind("CTRL+SHIFT+KP_Multiply", hl.dsp.exec_cmd("~/.local/bin/discord_mic_toggle"),                         {description = "Discord Mute"})
-hl.bind("CTRL+SHIFT+KP_Divide",   hl.dsp.exec_cmd("~/.local/bin/discord_deafen_toggle"),                      {description = "Discord Full-Mute"})
+hl.bind("CTRL+SHIFT+KP_Multiply", hl.dsp.exec_cmd("~/.local/bin/discord_mic_toggle"),                         {description = "Custom: Discord Mute"})
+hl.bind("CTRL+SHIFT+KP_Divide",   hl.dsp.exec_cmd("~/.local/bin/discord_deafen_toggle"),                      {description = "Custom: Discord Full-Mute"})
 
 -- Wayscriber
 hl.unbind("SUPER + X")
-hl.bind("SUPER+X", hl.dsp.exec_cmd([[bash -lc "kill -USR1 $(pgrep -fo 'wayscriber --daemon')"]]),             {description = "Toggle Wayscriber"})
+hl.bind("SUPER+X", hl.dsp.exec_cmd([[bash -lc "kill -USR1 $(pgrep -fo 'wayscriber --daemon')"]]),             {description = "Custom: Toggle Wayscriber"})
 
 -- Workspace: per-monitor groups (SUPER+N uses monitor's WS group)
 local function monitor_ws(i)
@@ -27,7 +27,7 @@ for i = 1, 10 do
     hl.unbind("SUPER + code:" .. numpadkey[i])
     hl.bind("SUPER + " .. (i % 10), function()
         hl.dispatch(hl.dsp.focus({ workspace = monitor_ws(i) }))
-    end, { description = "Workspace: Focus " .. i })
+    end, { description = "Custom: Workspace focus " .. i })
     hl.bind("SUPER + code:" .. numberkey[i], function()
         hl.dispatch(hl.dsp.focus({ workspace = monitor_ws(i) }))
     end)
@@ -50,14 +50,14 @@ for i = 1, 10 do
         hl.dispatch(hl.dsp.workspace.move({ workspace = tostring(target_ws), monitor = target_mon.name }))
     end
     hl.bind("CTRL + SHIFT + SUPER + " .. (i % 10), function() send_to_other(i) end,
-        { description = "Window: Send to WS " .. i .. " on other monitor" })
+        { description = "Custom: Move window to WS " .. i .. " on other monitor" })
 end
 
 -- CTRL+SUPER+N: focus WS N on DP-2
 for i = 1, 10 do
     hl.bind("CTRL + SUPER + " .. (i % 10), function()
         hl.dispatch(hl.dsp.focus({ workspace = 1 * workspaceGroupSize + i }))
-    end, { description = "Focus WS " .. i .. " on DP-2" })
+    end, { description = "Custom: Focus WS " .. i .. " on DP-2" })
 end
 
 -- Monitor: move window to same WS on next monitor group (silent)
@@ -75,7 +75,7 @@ hl.bind("CTRL+SHIFT+SUPER+M", function()
     hl.dispatch(hl.dsp.workspace.move({ workspace = tostring(target_ws), monitor = target_mon.name }))
     hl.dispatch(hl.dsp.focus({ workspace = prev_ws.name }))
     hl.dispatch(hl.dsp.exec_cmd("hyprctl dispatch focuscurrentorlast"))
-end, {description = "Move window to same WS on next monitor (silent)"})
+end, {description = "Custom: Move window to same WS on next monitor (silent)"})
 
 hl.unbind("SUPER + SHIFT + M")
 hl.bind("SUPER+SHIFT+M", function()
@@ -89,4 +89,4 @@ hl.bind("SUPER+SHIFT+M", function()
     local target_mon = hl.get_monitor(next_group)
     hl.dispatch(hl.dsp.window.move({ workspace = tostring(target_ws), follow = true }))
     hl.dispatch(hl.dsp.workspace.move({ workspace = tostring(target_ws), monitor = target_mon.name }))
-end, {description = "Move window to same WS on next monitor"})
+end, {description = "Custom: Move window to same WS on next monitor"})
