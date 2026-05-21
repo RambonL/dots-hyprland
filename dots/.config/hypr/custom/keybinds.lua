@@ -56,7 +56,10 @@ end
 -- CTRL+SUPER+N: focus WS N on DP-2
 for i = 1, 10 do
     hl.bind("CTRL + SUPER + " .. (i % 10), function()
-        hl.dispatch(hl.dsp.focus({ workspace = 1 * workspaceGroupSize + i }))
+        local target_ws = 1 * workspaceGroupSize + i
+        local target_mon = hl.get_monitor(1)
+        hl.dispatch(hl.dsp.workspace.move({ workspace = tostring(target_ws), monitor = target_mon.name }))
+        hl.dispatch(hl.dsp.focus({ workspace = tostring(target_ws) }))
     end, { description = "Custom: Focus WS " .. i .. " on DP-2" })
 end
 
