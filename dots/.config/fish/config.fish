@@ -2,8 +2,10 @@
 if status is-interactive
     # No greeting
     set fish_greeting
-
+    # Show System Info
     fastfetch
+    # use zoxide
+    zoxide init fish | source
 
     # Use starship
     function starship_transient_prompt_func
