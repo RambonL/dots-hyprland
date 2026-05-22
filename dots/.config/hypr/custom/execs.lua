@@ -8,7 +8,7 @@ end)
 
 hl.window_rule({match = {class = "^brave-browser$"},              workspace = 1,  monitor = "DP-1"})
 hl.window_rule({match = {class = "^code-oss$"},                   workspace = 4,  monitor = "DP-1"})
-hl.window_rule({match = {class = "^discord$"},                    workspace = 3,  monitor = "DP-1"})
+hl.window_rule({match = {class = "^discord$"},                    workspace = 13,  monitor = "DP-2"})
 hl.window_rule({match = {class = "^Mullvad VPN$"},                workspace = 20, monitor = "DP-2"})
 hl.window_rule({match = {class = "^python3$"},                    workspace = 20, monitor = "DP-2"})
 hl.window_rule({match = {class = "^org.keepassxc.KeePassXC$"},   workspace = 20, monitor = "DP-2"})
