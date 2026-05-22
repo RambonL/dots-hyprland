@@ -21,6 +21,13 @@ end
 local numberkey = { 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 }
 local numpadkey = { 87, 88, 89, 83, 84, 85, 79, 80, 81, 90 }
 
+-- Fix upstream triple-fire on SUPER+ALT+N: remove keycode duplicates so only
+-- key name fires once → only active window moves, not 2-3 successive windows
+for i = 1, 10 do
+    hl.unbind("SUPER + ALT + code:" .. numberkey[i])
+    hl.unbind("SUPER + ALT + code:" .. numpadkey[i])
+end
+
 for i = 1, 10 do
     hl.unbind("SUPER + " .. (i % 10))
     hl.unbind("SUPER + code:" .. numberkey[i])
