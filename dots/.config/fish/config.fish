@@ -35,3 +35,4 @@ if status is-interactive
         alias ssh 'kitten ssh'
     end
 end
+set -x PATH ~/.npm-global/bin $PATH
