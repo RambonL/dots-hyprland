@@ -6,7 +6,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("discord --ozone-platform=x11")
 end)
 
-hl.window_rule({match = {class = "^brave-browser$"},              workspace = 1,  monitor = "DP-1"})
+hl.window_rule({match = {class = "^brave-origin-beta$"},          workspace = 1,  monitor = "DP-1"})
 hl.window_rule({match = {class = "^code-oss$"},                   workspace = 4,  monitor = "DP-1"})
 hl.window_rule({match = {class = "^discord$"},                    workspace = 13,  monitor = "DP-2"})
 hl.window_rule({match = {class = "^Mullvad VPN$"},                workspace = 20, monitor = "DP-2"})
