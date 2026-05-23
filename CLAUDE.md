@@ -91,6 +91,16 @@ git push origin main
 |------|-------|
 | `modules/ii/bar/StyledPopup.qml` | Screen-clamping: clamps popup `left` margin to `screenWidth - popupWidth` to prevent overflow onto second monitor |
 | `modules/ii/bar/BarContent.qml` | Adds `MullvadIndicator` to right section, `BatteryResources` to clock group |
+| `modules/common/widgets/NotificationItem.qml` | Fix Qt 6.11.1 `polish()` loop: `summaryRow.implicitWidth` → `root.width` (upstream PR #3388) |
+
+### Applying upstream PRs
+
+```bash
+gh pr diff <nr> --repo end-4/dots-hyprland | git apply --check  # dry run
+gh pr diff <nr> --repo end-4/dots-hyprland | git apply           # apply
+```
+
+Add the patched file to the custom patches table above and to `qs-sync.sh` watch list if in `quickshell/ii`.
 
 ## Hypr Config
 

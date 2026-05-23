@@ -69,6 +69,22 @@ end)
 
 Convention: DP-1 apps → WS 1–10; DP-2 background apps → WS 20.
 
+## Upstream Keybind Triple-Fire Bug
+
+Upstream binds each number key **three times** per combo (key name + `code:numberkey` + `code:numpadkey`). For actions that move the active window (`window.move`), all three fire in sequence — each callback sees the *new* active window after the previous move, causing 2–3 windows to move instead of 1.
+
+**Affected upstream binds:** `SUPER+ALT+N` (send window to WS N).  
+**Fix in `custom/keybinds.lua`:** `hl.unbind` the keycode variants, keep only the key name bind.
+
+```lua
+for i = 1, 10 do
+    hl.unbind("SUPER + ALT + code:" .. numberkey[i])
+    hl.unbind("SUPER + ALT + code:" .. numpadkey[i])
+end
+```
+
+Focus-only actions (like `SUPER+N`) are safe with triple-fire since focusing the same WS twice is idempotent.
+
 ## Notes
 
 `.old` / `.new` files are install-script backup artifacts — ignore.
