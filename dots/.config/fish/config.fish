@@ -36,3 +36,4 @@ if status is-interactive
     end
 end
 set -x PATH ~/.npm-global/bin $PATH
+export PATH="$HOME/.local/bin:$PATH"
